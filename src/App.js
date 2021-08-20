@@ -19,9 +19,7 @@ function Greeting(props) {
   return <Header2 lastClick={()=>setIsBaseMenu(!isBaseMenu)}/>;
 }
 
-
 function App() {
-
 
   return (
     <div className="App">
