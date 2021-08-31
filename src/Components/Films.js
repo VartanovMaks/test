@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Game() {
+function Films() {
     return (
         <div>
-            Play the game
+           Films
         </div>
     );
 }
 
-export default Game;
+export default Films;
