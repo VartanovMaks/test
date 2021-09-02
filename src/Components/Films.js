@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import Poster from './Poster';
+import FilmsList from './FilmsList';
+
 
 function Films() {
 
-    const [film, setFilms] = useState(0)
+    const [films, setFilms] = useState([])
 
     const fetchData = async () => {
         try{
             const response = await fetch('http://localhost:3000/films');
-            const result = await response.json(response);
+            const result = await response.json();
             setFilms(result);
             
     
@@ -22,14 +23,9 @@ function Films() {
     },[]);
 
     return (
-        <div>
-          {film && <div>
-                        <p>{film.name}</p>
-                        <p>{film.country}</p>
-                        <Poster id = {film.id} poster = {film.poster} />
-                    </div>     
-            }
-        </div>
+        <>
+        {films && <FilmsList films={films}/>}
+        </>
     );
 }
 
