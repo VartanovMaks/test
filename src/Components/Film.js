@@ -21,8 +21,6 @@ function Film(params) {
         fetchData();
     },[]);
     
-    console.log(film);
-    
     return (
         <div className={"film-details"}>
             { film && <>
@@ -33,7 +31,7 @@ function Film(params) {
                 <div className="film-list">
                     {film.actors.map(actor => 
                             <div>
-                                <img src={`${PATHTO.HOST_NAME}/${film.id}/${PATHTO.ACTORS_PHOTO}/${actor.photo}`} alt={actor.name} />
+                                <img src={`${PATHTO.HOST_NAME}/${film._id}/${PATHTO.ACTORS_PHOTO}/${actor.photo}`} alt={actor.name} />
                                 <p>{actor.name}</p>
                             </div>
                     )}  

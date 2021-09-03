@@ -7,11 +7,11 @@ function FilmsList({films}) {
     return (
         <div className="film-list">
             {films.map(film => 
-                <div className="film">
+                <div className="film" key={film._id}>
                     <p>{film.name}</p>
                     <p>{film.country}</p>
-                    <Poster id = {film.id} poster = {film.poster} />
-                    <Link to={`/films/${film.id}`} >
+                    <Poster id = {film._id} poster = {film.poster} />
+                    <Link to={`/films/${film._id}`} >
                         <button> Подробнее </button>
                     </Link>
                 </div>   
