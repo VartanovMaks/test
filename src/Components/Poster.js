@@ -1,8 +1,9 @@
 import React from 'react';
+import PATHTO from './Constants'
 
 function Poster({id,poster}) {
 
-    const url=`http://localhost:3000/${id}/poster/${poster}`
+    const url=`${PATHTO.HOST_NAME}/${id}/${PATHTO.POSTER}/${poster}`
 
     return (
         <div>

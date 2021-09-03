@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
+import PATHTO from './Constants';
 
 function Film(params) {
     
@@ -8,7 +9,7 @@ function Film(params) {
 
     const fetchData = async () => {
         try{
-            const response = await fetch(`http://localhost:3000/films/${filmID}`);
+            const response = await fetch(`${PATHTO.HOST_NAME}/films/${filmID}`);
             const result = await response.json();
             setFilm(result);
         } catch (error) {
@@ -32,7 +33,7 @@ function Film(params) {
                 <div className="film-list">
                     {film.actors.map(actor => 
                             <div>
-                                <img src={`http://localhost:3000/${film.id}/actors_img/${actor.photo}`} alt={actor.name} />
+                                <img src={`${PATHTO.HOST_NAME}/${film.id}/${PATHTO.ACTORS_PHOTO}/${actor.photo}`} alt={actor.name} />
                                 <p>{actor.name}</p>
                             </div>
                     )}  

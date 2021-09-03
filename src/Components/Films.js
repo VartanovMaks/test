@@ -8,7 +8,7 @@ function Films() {
 
     const fetchData = async () => {
         try{
-            const response = await fetch('http://localhost:3000/films');
+            const response = await fetch('http://localhost:3001/films');
             const result = await response.json();
             setFilms(result);
             
