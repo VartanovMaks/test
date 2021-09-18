@@ -3,7 +3,7 @@ import Poster from './Poster';
 import {Link} from 'react-router-dom'
 
 function FilmsList({films}) {
-    
+
     return (
         <div className="film-list">
             {films.map(film => 

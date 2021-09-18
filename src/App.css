@@ -11,6 +11,7 @@ img {
 .film-list {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   margin: 10px;
 }
 .film {
