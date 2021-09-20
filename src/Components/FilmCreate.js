@@ -19,7 +19,7 @@ function FilmCreate(props) {
     const [filmData, setFilmData]=useState(INIT_FILM_DATA);
     const [filesToSend, setFilesToSend] = useState(new FormData());
     
-    const filesFieldNames={poster:PATHTO.POSTER, actors:PATHTO.ACTORS_PHOTO, images:PATHTO.FRAMES};
+    const filesFieldNames={poster:'poster', actors:'actors', images:'images'};
     // const filesFieldNames={poster:'poster', actors:'actors', images:'images'};
     
     function dataToSend () {

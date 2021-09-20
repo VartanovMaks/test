@@ -6,6 +6,7 @@ function Film(params) {
     
     const [film, setFilm] = useState(0)
     const {filmID}  = useParams();
+    const [counter, setCounter] = useState(0);
 
     const fetchData = async () => {
         try{
@@ -19,8 +20,11 @@ function Film(params) {
     
     useEffect(()=>{
         fetchData();
+        setCounter(prev=>prev+1)
     },[]);
     
+    console.log('render - ', counter);
+    console.log(film);
     return (
         <div className={"film-details"}>
             { film && <>
@@ -29,6 +33,13 @@ function Film(params) {
                 <p>Режиссер: {film.director.name}</p>
                 <h5>Актеры</h5>
                 <div className="film-list">
+                    {film.images.map(img => 
+                            <div>
+                                <img src={`${PATHTO.HOST_NAME}/${film._id}/${PATHTO.FRAMES}/${img}`} alt={img} />
+                            </div>
+                    )}  
+                </div>
+                <div className="film-list">
                     {film.actors.map(actor => 
                             <div>
                                 <img src={`${PATHTO.HOST_NAME}/${film._id}/${PATHTO.ACTORS_PHOTO}/${actor.photo}`} alt={actor.name} />
@@ -36,12 +47,12 @@ function Film(params) {
                             </div>
                     )}  
                 </div>
-                <iframe width="560" height="315" src={`${film.trailer}`}
+                {film.trailer && <iframe width="560" height="315" src={`${film.trailer}`}
                         title="YouTube video player" frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                 </iframe>
-                
+                 }
             </>}
         </div>
     );
