@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import PATHTO from './Constants';
+import PhotoPreview from './PhotoPreview';
 
 const INIT_FILM_DATA={
     name:"",
@@ -150,6 +151,9 @@ function FilmCreate(props) {
           <div className="col-sm-5">
             <input type="file" className="form-control" id={filesFieldNames.poster} onChange={addPoster} />
           </div>
+          <div className="col-sm-2">
+          <PhotoPreview filesFormData = {filesToSend} field={'poster'}/>
+          </div>
         </div>
         <hr/>
          {/* ==================================================================== */}
@@ -180,6 +184,7 @@ function FilmCreate(props) {
           <div className="col-sm-5 offset-sm-2">
             <button className="btn btn-primary" onClick={submitData}>Send data</button>
           </div>
+          <PhotoPreview filesFormData = {filesToSend} field={'images'}/>
         </div>
         </div>
          </form>

@@ -1,0 +1,22 @@
+.home-btn {
+  width:50%;
+  height:50vh;
+  border-radius: 50%;  
+  border: none;
+  font-size: 9vh;
+}
+
+.counter {
+    background-color: greenyellow;
+    font-size: 4rem;
+}
+.container{
+  display:flex;
+  justify-content: space-between;
+
+}
+
+.container p {
+  margin:0;
+  
+}

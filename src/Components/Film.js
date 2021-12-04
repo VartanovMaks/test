@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import PATHTO from './Constants';
+import Player from './Player';
+
 
 function Film(params) {
     
     const [film, setFilm] = useState(0)
     const {filmID}  = useParams();
-    const [counter, setCounter] = useState(0);
+    const [isFilmViewed, setIsFilmViewed] = useState(0);
 
     const fetchData = async () => {
         try{
@@ -20,39 +22,40 @@ function Film(params) {
     
     useEffect(()=>{
         fetchData();
-        setCounter(prev=>prev+1)
     },[]);
     
-    console.log('render - ', counter);
     console.log(film);
     return (
         <div className={"film-details"}>
-            { film && <>
+            { film && 
+            <>
                 <h3>{film.name}</h3>
                 <p>Год выпуска: {film.year}, страна: {film.country}, жанр: {film.category}</p>
                 <p>Режиссер: {film.director.name}</p>
                 <h5>Актеры</h5>
                 <div className="film-list">
                     {film.images.map(img => 
-                            <div>
+                            <div key={img}>
                                 <img src={`${PATHTO.HOST_NAME}/${film._id}/${PATHTO.FRAMES}/${img}`} alt={img} />
                             </div>
                     )}  
                 </div>
                 <div className="film-list">
                     {film.actors.map(actor => 
-                            <div>
+                            <div key={actor.name}>
                                 <img src={`${PATHTO.HOST_NAME}/${film._id}/${PATHTO.ACTORS_PHOTO}/${actor.photo}`} alt={actor.name} />
                                 <p>{actor.name}</p>
                             </div>
                     )}  
                 </div>
-                {film.trailer && <iframe width="560" height="315" src={`${film.trailer}`}
-                        title="YouTube video player" frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                </iframe>
+                {film.trailer && <Player videoUrl={film.trailer} isViewed = {setIsFilmViewed}/>
                  }
+                {/* {film.trailer && <iframe width="560" height="315" src={`${film.trailer}`}
+                        title="YouTube video player" frameBorder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowFullScreen>
+                </iframe>
+                 } */}
             </>}
         </div>
     );
