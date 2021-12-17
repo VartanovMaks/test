@@ -1,0 +1,29 @@
+.pagination-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination-container div{
+    margin: auto 10px;
+    border: 1px solid green;
+    width: 5%;
+    text-align: center;
+}
+
+.pagination-container input{
+    width: 7%;
+}
+
+/* input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; 
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+} */

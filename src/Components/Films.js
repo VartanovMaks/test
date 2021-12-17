@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import FilmsList from './FilmsList';
-import PATHTO from './Constants'
+import PATHTO from './Constants';
+import Pagination from './Pagination/Pagination.jsx';
 
 
 function Films() {
 
     const [films, setFilms] = useState([])
+    
 
     const fetchData = async () => {
         try{
@@ -18,11 +20,13 @@ function Films() {
       }
     
     useEffect(()=>{
-        fetchData()
+        fetchData();
+
     },[]);
 
     return (
         <>
+        <Pagination/>
         {films && <FilmsList films={films}/>}
         </>
     );
