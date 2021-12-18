@@ -5,29 +5,36 @@ import Pagination from './Pagination/Pagination.jsx';
 
 
 function Films() {
-
-    const [films, setFilms] = useState([])
+    const [films, setFilms] = useState([]);
+    // const [isFetching, setIsFetching]= useState(false);
+    const itemsOnPage = 4;
+    const [fetchParams, setFetchParams] = useState({
+        limit: itemsOnPage,
+        skip:0,
+    })
     
-
-    const fetchData = async () => {
+    const fetchData = async (url) => {
         try{
-            const response = await fetch(`${PATHTO.HOST_NAME}/films`);
+            const response = await fetch(url);
             const result = await response.json();
             setFilms(result);
         } catch (error) {
             console.log('Ошибка загрузки заданий', error);
         }
-      }
+    }
     
     useEffect(()=>{
-        fetchData();
-
-    },[]);
-
+        const url = `${PATHTO.HOST_NAME}/films?skip=${fetchParams.skip}&limit=${fetchParams.limit}`;
+        fetchData(url);
+    },[fetchParams, itemsOnPage]);
+    
     return (
         <>
-        <Pagination/>
-        {films && <FilmsList films={films}/>}
+            <Pagination 
+                setFetchData={setFetchParams}
+                itemsOnPage={itemsOnPage}
+            />
+            {!!films && <FilmsList films={films}/>}
         </>
     );
 }

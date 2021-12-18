@@ -4,9 +4,9 @@ import { useState } from 'react';
 import PATHTO from '../Constants';
 import './Pagination.css'
 
-function Pagination(props) {
+function Pagination({itemsOnPage, setFetchData}) {
+    
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsOnPage = 5;
     const [filmsAmount, setFilmsAmount] = useState();
     const [totalPages, setTotalPages] = useState();
     
@@ -22,13 +22,32 @@ function Pagination(props) {
     
     useEffect(()=>{
         fetchFilmsAmount();
-        if(filmsAmount>0) setTotalPages(Math.ceil(filmsAmount/itemsOnPage));
-    },[filmsAmount]);
+        if(filmsAmount>0) {
+            const totPages = Math.ceil(filmsAmount/itemsOnPage);
+            const currPage = localStorage.getItem("currentPage");
+            if (!currPage)
+                localStorage.setItem("currentPage", 1);
+            else if (currPage > totPages ){
+                localStorage.setItem("currentPage", 1);
+                setCurrentPage(currPage);
+            }
+            setTotalPages(totPages);
+        }
+    },[itemsOnPage, filmsAmount]);
 
     useEffect(()=>{
         const storedCurrentPage = localStorage.getItem("currentPage");
-        if (storedCurrentPage) setCurrentPage(storedCurrentPage);
-    },[]);
+        let skip;
+        
+        if (storedCurrentPage){ 
+            if(!(currentPage === "") )  
+                setCurrentPage(storedCurrentPage);
+            skip = (storedCurrentPage-1) * itemsOnPage;
+            }
+        else skip = 0;
+        
+        setFetchData({limit:itemsOnPage, skip})
+    },[currentPage]);
 
     const onChangeHandler = (e) =>{
         const regex = /[0-9]+$/;
@@ -50,8 +69,8 @@ function Pagination(props) {
         let value = e.target.value;
         if (e.key === "Enter"){
             if (value === ""){
-                localStorage.setItem("currentPage",1);
-                setCurrentPage(1);
+                const ls=localStorage.getItem("currentPage");
+                setCurrentPage(ls);
             }
         } 
     }
@@ -67,7 +86,7 @@ function Pagination(props) {
     return (
         <div className="pagination-container">
             <div onClick={()=>onPageChange(1)}>1</div>
-            <div onClick={()=>onPageChange(currentPage-1)}>prev</div>
+            <div onClick={()=>onPageChange(+currentPage-1)}>prev</div>
             <input 
                 type='text' 
                 value={currentPage}
