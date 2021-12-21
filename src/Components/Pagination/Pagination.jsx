@@ -2,13 +2,15 @@ import React from 'react';
 import { useEffect} from 'react';
 import { useState } from 'react';
 import PATHTO from '../Constants';
+import PagesNumber from './PagesNumber';
 import './Pagination.css'
 
-function Pagination({itemsOnPage, setFetchData}) {
+function Pagination({setFetchData}) {
     
     const [currentPage, setCurrentPage] = useState(1);
     const [filmsAmount, setFilmsAmount] = useState();
     const [totalPages, setTotalPages] = useState();
+    const [itemsOnPage, setItemsOnPage] = useState(4);
     
     const fetchFilmsAmount = async () => {
         try{
@@ -21,16 +23,18 @@ function Pagination({itemsOnPage, setFetchData}) {
       }
     
     useEffect(()=>{
+        
         fetchFilmsAmount();
         if(filmsAmount>0) {
             const totPages = Math.ceil(filmsAmount/itemsOnPage);
             const currPage = localStorage.getItem("currentPage");
-            if (!currPage)
+            console.log('useEffect #1. currPage totPages', currPage, totPages);
+        
+            if (!currPage || currPage > totPages ){
                 localStorage.setItem("currentPage", 1);
-            else if (currPage > totPages ){
-                localStorage.setItem("currentPage", 1);
-                setCurrentPage(currPage);
+                setCurrentPage(1);
             }
+            setCurrentPage(currPage);
             setTotalPages(totPages);
         }
     },[itemsOnPage, filmsAmount]);
@@ -38,7 +42,7 @@ function Pagination({itemsOnPage, setFetchData}) {
     useEffect(()=>{
         const storedCurrentPage = localStorage.getItem("currentPage");
         let skip;
-        
+        console.log('useEffect #2. currentPage storedCurrentPage', currentPage, storedCurrentPage);
         if (storedCurrentPage){ 
             if(!(currentPage === "") )  
                 setCurrentPage(storedCurrentPage);
@@ -47,9 +51,10 @@ function Pagination({itemsOnPage, setFetchData}) {
         else skip = 0;
         
         setFetchData({limit:itemsOnPage, skip})
-    },[currentPage]);
+    },[currentPage, itemsOnPage]);
 
     const onChangeHandler = (e) =>{
+        debugger;
         const regex = /[0-9]+$/;
         // var reg = /^\d+$/;
         let {target:{value} } = e;
@@ -85,8 +90,11 @@ function Pagination({itemsOnPage, setFetchData}) {
 
     return (
         <div className="pagination-container">
-            <div onClick={()=>onPageChange(1)}>1</div>
-            <div onClick={()=>onPageChange(+currentPage-1)}>prev</div>
+            <div className='select-pages-amount'>
+                <PagesNumber setItemsOnPage={setItemsOnPage}/>
+            </div>
+            <div className="pagination-div" onClick={()=>onPageChange(1)}>1</div>
+            <div className="pagination-div" onClick={()=>onPageChange(+currentPage-1)}>prev</div>
             <input 
                 type='text' 
                 value={currentPage}
@@ -94,8 +102,10 @@ function Pagination({itemsOnPage, setFetchData}) {
                 onKeyDown={onKeyPressed}
             >
             </input>
-            <div onClick={()=>onPageChange(+currentPage+1)}>next</div>
-            <div onClick={()=>onPageChange(totalPages)}>{totalPages}</div>
+            <div className="pagination-div" onClick={()=>onPageChange(+currentPage+1)}>next</div>
+            <div className="pagination-div" onClick={()=>onPageChange(totalPages)}>{totalPages}</div>
+            <div style={{width: "10%"}}></div>
+
         </div>
     );
 }

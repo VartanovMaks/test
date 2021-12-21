@@ -7,9 +7,9 @@ import Pagination from './Pagination/Pagination.jsx';
 function Films() {
     const [films, setFilms] = useState([]);
     // const [isFetching, setIsFetching]= useState(false);
-    const itemsOnPage = 4;
+    
     const [fetchParams, setFetchParams] = useState({
-        limit: itemsOnPage,
+        limit: 4,
         skip:0,
     })
     
@@ -26,14 +26,11 @@ function Films() {
     useEffect(()=>{
         const url = `${PATHTO.HOST_NAME}/films?skip=${fetchParams.skip}&limit=${fetchParams.limit}`;
         fetchData(url);
-    },[fetchParams, itemsOnPage]);
+    },[fetchParams]);
     
     return (
         <>
-            <Pagination 
-                setFetchData={setFetchParams}
-                itemsOnPage={itemsOnPage}
-            />
+            <Pagination setFetchData={setFetchParams}/>
             {!!films && <FilmsList films={films}/>}
         </>
     );

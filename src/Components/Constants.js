@@ -7,4 +7,8 @@ const PATHTO ={
     FRAMES :'img',
 }
 
+const ItemsPerPage = [4,6,8,12,16,20];
+
+export {ItemsPerPage};
+
 export default PATHTO;

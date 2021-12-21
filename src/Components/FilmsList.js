@@ -8,7 +8,7 @@ function FilmsList({films}) {
     return (
         <>
             <div className="film-list">
-                {films.map(film => 
+                {!!films && films.map(film => 
                     <div className="film" key={film._id}>
                         <p>{film.name}</p>
                         <p>{film.country}</p>

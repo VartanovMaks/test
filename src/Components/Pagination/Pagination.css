@@ -1,19 +1,35 @@
-.pagination-container{
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+.pagination-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-.pagination-container div{
-    margin: auto 10px;
-    border: 1px solid green;
-    width: 5%;
-    text-align: center;
+.select-pages-amount{
+    /* margin-right: 20px; */
+    width: 10%;
 }
 
-.pagination-container input{
-    width: 7%;
+.pagination-div {
+  margin: auto 10px;
+  border: 1px solid green;
+  width: 5%;
+  text-align: center;
+}
+
+.pagination-container input {
+  width: 7%;
+}
+
+.pagination-container div:hover {
+  background-color: gray;
+  opacity: 0.5;
+  color: yellow;
+}
+.pagination-container input:hover {
+  background-color: gray;
+  opacity: 0.5;
+  color: yellow;
 }
 
 /* input[type="number"]::-webkit-outer-spin-button,
